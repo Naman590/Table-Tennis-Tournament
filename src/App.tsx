@@ -304,11 +304,11 @@ export default function App() {
 
           if (m.scoreA > m.scoreB) {
             pA.won++;
-            pA.points += 3;
+            pA.points += 2;
             pB.lost++;
           } else if (m.scoreB > m.scoreA) {
             pB.won++;
-            pB.points += 3;
+            pB.points += 2;
             pA.lost++;
           } else {
             pA.points += 1;
@@ -621,66 +621,64 @@ export default function App() {
   };
 
   const renderLeaderboard = () => (
-    <div className="px-2 sm:px-4 pb-24 h-full overflow-y-auto space-y-4">
+    <div className="px-4 pb-24 h-full overflow-y-auto space-y-4">
       <div className="glass-card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[320px] xs:min-w-0">
-            <thead>
-              <tr className="border-b border-white/5 bg-white/5">
-                <th className="px-2 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display">Pos</th>
-                <th className="px-2 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display">Player</th>
-                <th className="px-1 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">P</th>
-                <th className="px-1 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">W</th>
-                <th className="px-1 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">L</th>
-                <th className="px-2 py-3 sm:p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">Pts</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaderboard.map((entry, index) => {
-                const player = currentTournament?.players.find(p => p.id === entry.playerId);
-                return (
-                  <motion.tr 
-                    key={entry.playerId}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="border-b border-white/5 hover:bg-white/5 transition-colors"
-                  >
-                    <td className="px-2 py-3 sm:p-4">
-                      <div className="flex items-center gap-1 sm:gap-2">
-                        {index === 0 && <Medal size={12} className="text-yellow-400 sm:w-3.5 sm:h-3.5" />}
-                        {index === 1 && <Medal size={12} className="text-slate-300 sm:w-3.5 sm:h-3.5" />}
-                        {index === 2 && <Medal size={12} className="text-amber-600 sm:w-3.5 sm:h-3.5" />}
-                        <span className={`font-display font-bold text-xs sm:text-base ${index < 3 ? 'text-accent-cyan' : 'text-white/40'}`}>
-                          {index + 1}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-2 py-3 sm:p-4">
-                      <div className="flex items-center gap-2 sm:gap-3">
-                        <div 
-                          className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[8px] sm:text-[10px] font-bold shrink-0"
-                          style={{ backgroundColor: player?.color + '33', color: player?.color }}
-                        >
-                          {getInitials(entry.name)}
-                        </div>
-                        <span className="font-medium text-[10px] sm:text-sm truncate max-w-[60px] sm:max-w-[120px]">{entry.name}</span>
-                      </div>
-                    </td>
-                    <td className="px-1 py-3 sm:p-4 text-center text-[10px] sm:text-sm text-white/60">{entry.played}</td>
-                    <td className="px-1 py-3 sm:p-4 text-center text-[10px] sm:text-sm text-emerald-500 font-bold">{entry.won}</td>
-                    <td className="px-1 py-3 sm:p-4 text-center text-[10px] sm:text-sm text-rose-500/60">{entry.lost}</td>
-                    <td className="px-2 py-3 sm:p-4 text-center">
-                      <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 glass rounded text-[10px] sm:text-xs font-bold text-accent-cyan">
-                        {entry.points}
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-white/5 bg-white/5">
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display">Pos</th>
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display">Player</th>
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">P</th>
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">W</th>
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">L</th>
+              <th className="p-4 text-[10px] uppercase tracking-widest text-white/40 font-display text-center">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaderboard.map((entry, index) => {
+              const player = currentTournament?.players.find(p => p.id === entry.playerId);
+              return (
+                <motion.tr 
+                  key={entry.playerId}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                >
+                  <td className="p-4">
+                    <div className="flex items-center gap-2">
+                      {index === 0 && <Medal size={14} className="text-yellow-400" />}
+                      {index === 1 && <Medal size={14} className="text-slate-300" />}
+                      {index === 2 && <Medal size={14} className="text-amber-600" />}
+                      <span className={`font-display font-bold ${index < 3 ? 'text-accent-cyan' : 'text-white/40'}`}>
+                        {index + 1}
                       </span>
-                    </td>
-                  </motion.tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold"
+                        style={{ backgroundColor: player?.color + '33', color: player?.color }}
+                      >
+                        {getInitials(entry.name)}
+                      </div>
+                      <span className="font-medium text-sm truncate max-w-[100px]">{entry.name}</span>
+                    </div>
+                  </td>
+                  <td className="p-4 text-center text-sm text-white/60">{entry.played}</td>
+                  <td className="p-4 text-center text-sm text-emerald-500 font-bold">{entry.won}</td>
+                  <td className="p-4 text-center text-sm text-rose-500/60">{entry.lost}</td>
+                  <td className="p-4 text-center">
+                    <span className="px-2 py-1 glass rounded text-xs font-bold text-accent-cyan">
+                      {entry.points}
+                    </span>
+                  </td>
+                </motion.tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
       {leaderboard.length > 0 && (
